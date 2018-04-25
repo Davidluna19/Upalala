@@ -1,0 +1,75 @@
+﻿@model PañaleraUpalala.Models.Proveedor
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2 class="text-center">Eliminar</h2>
+
+<h3>Eliminar este provedor permanentemente?</h3>
+<div>
+    <h4>Proveedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.domicilio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.domicilio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.banco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.banco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cbu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cbu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+            <div class="btn btn-default">
+                @Html.ActionLink("Volver", "Index")
+            </div>
+        </div>
+    }
+</div>

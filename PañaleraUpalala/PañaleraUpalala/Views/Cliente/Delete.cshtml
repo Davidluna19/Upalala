@@ -1,0 +1,51 @@
+﻿@model PañaleraUpalala.Models.Cliente
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="text-center">Delete</h2>
+
+<h3>Eliminar cliente?</h3>
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            Domicilio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.domicilio)
+        </dd>
+
+        <dt>
+            Cuenta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cuenta)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+            <div class="btn btn-default">
+                @Html.ActionLink("Volver", "Index")
+            </div>
+        </div>
+    }
+</div>

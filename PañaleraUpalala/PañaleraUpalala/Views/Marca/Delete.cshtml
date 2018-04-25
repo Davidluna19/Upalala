@@ -1,0 +1,43 @@
+﻿@model PañaleraUpalala.Models.Marca
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2 class="text-center">Eliminar</h2>
+
+<h3>Esta segro que desea eliminar esta marca?</h3>
+<div>
+    <h4>Marca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Marca:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marca)
+        </dd>
+
+        <dt>
+            Descripcion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+            <div class="btn btn-default">
+                @Html.ActionLink("Volver", "Index")
+            </div>
+        </div>
+    }
+</div>

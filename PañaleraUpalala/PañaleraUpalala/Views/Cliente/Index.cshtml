@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PañaleraUpalala.Models.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Clientes</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Domicilio
+        </th>
+        <th>
+            Telefono
+        </th>
+        <th>
+            Cuenta
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.domicilio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cuenta)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+<p class="btn btn-default">
+    @Html.ActionLink("Agregar", "Create")
+</p>
+

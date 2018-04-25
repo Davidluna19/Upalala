@@ -1,0 +1,62 @@
+﻿@model PañaleraUpalala.Models.Cliente
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2 class="text-center">Detalles</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            Domicilio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.domicilio)
+        </dd>
+
+        <dt>
+            Telefono
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            Cuenta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cuenta)
+        </dd>
+
+    </dl>
+</div>
+<div class="form-group">
+    <div class="btn btn-default">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id })
+    </div>
+    <div class="btn btn-default">
+        @Html.ActionLink("Volver", "Index")
+    </div>
+</div>
