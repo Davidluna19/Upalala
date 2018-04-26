@@ -11,6 +11,7 @@ namespace PañaleraUpalala.Models
     {
         public int id { get; set; }
         [Required(ErrorMessage ="El campo es requerido.")]
+        [DataType(DataType.Date)]
         [Display(Name = "Fecha")]
         public DateTime fecha { get; set; }
         public int proveedorId { get; set; }
@@ -25,7 +26,7 @@ namespace PañaleraUpalala.Models
             double total = 0.0;
             foreach(LineasCompra linea in productos)
             {
-                total += linea.Total();
+                total += linea.Total;
             }
             return total;
         }

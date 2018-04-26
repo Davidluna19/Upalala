@@ -11,7 +11,7 @@ namespace PañaleraUpalala.Models
     public class ProductoCreateView
     {
         public int id { get; set; }
-        [Required(ErrorMessage = "El campo es requerido.")]]
+        [Required(ErrorMessage = "El campo es requerido.")]
         [StringLength(20,ErrorMessage ="No más de 20 caracteres.")]
         [Display(Name = "Nombre")]
         public string nombre { get; set; }

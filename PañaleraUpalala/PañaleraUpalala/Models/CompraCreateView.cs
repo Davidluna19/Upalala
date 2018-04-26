@@ -9,8 +9,9 @@ namespace PañaleraUpalala.Models
     public class CompraCreateView
     {
         public int id { get; set; }
-        [Required(ErrorMessage ="El campo es requerido.")]
+        [Required(ErrorMessage = "El campo es requerido.")]
         [Display(Name = "Fecha")]
+        [DataType(DataType.Date)]
         public DateTime fecha { get; set; }
         public IEnumerable<Proveedor> proveedores { get; set; }
         [Required(ErrorMessage = "El campo es requerido.")]

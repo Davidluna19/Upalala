@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PañaleraUpalala.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,6 +40,44 @@ namespace PañaleraUpalala.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        // GET: Compra/Create
+        public ActionResult Create()
+        {
+            CompraCreateView model = new CompraCreateView();
+            var db = new ApplicationDbContext();
+            ViewBag.proveedores = db.Proveedores.ToList();
+            model.proveedores  = db.Proveedores.ToList();
+            return View(model);
+        }
+
+        // POST: Compra/Create
+        [HttpPost]
+        public ActionResult Create(CompraCreateView model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var db = new ApplicationDbContext();
+                    //Insertar en db
+                    Compra compra = new Compra();
+                    compra.fecha = model.fecha;
+                    compra.proveedorId = model.proveedorId;
+                    db.Compras.Add(compra);
+                    foreach (LineasCompra linea in model.lineas) {
+                        linea.compraId = compra.id;
+                        db.LineasComrpas.Add(linea);
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                /// MENSAJE ERROR
+                return RedirectToAction("Create");
             }
         }
     }

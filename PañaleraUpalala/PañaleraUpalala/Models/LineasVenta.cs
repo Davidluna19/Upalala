@@ -21,9 +21,6 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Cantidad")]
         public int cantidad { get; set; }
 
-        public double Total()
-        {
-            return (this.producto.Precio() * this.cantidad);
-        }
+        public double Total { get { return (this.producto.Precio() * this.cantidad); } }
     }
 }
