@@ -10,11 +10,11 @@ namespace PañaleraUpalala.Models
     public class Talle
     {
         public int id { get; set; }
-        [Required]
-        [StringLength(10)]
+        [Required(ErrorMessage = "El campo es requerido.")]
+        [StringLength(10,ErrorMessage ="No más de 10 caracteres.")]
         [Display(Name = "Talle")]
         public string talle { get; set; }
-        [StringLength(150)]
+        [StringLength(150,ErrorMessage ="No más de 150 caracteres.")]
         [Display(Name = "Descripcion")]
         public string descripcion { get; set; }
     }

@@ -9,11 +9,11 @@ namespace PañaleraUpalala.Models
     public class Marca
     {
         public int id { get; set; }
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "El campo es requerido.")]
+        [StringLength(50,ErrorMessage ="No más de 50 caracteres.")]
         [Display(Name = "Marca")]
         public string marca { get; set; }
-        [StringLength(300)]
+        [StringLength(300,ErrorMessage ="No más de 300 caracteres.")]
         [Display(Name = "Descripcion")]
         public string descripion { get; set; }
         [Display(Name = "Productos")]

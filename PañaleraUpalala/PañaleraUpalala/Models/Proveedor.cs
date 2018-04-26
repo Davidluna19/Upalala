@@ -9,14 +9,14 @@ namespace PañaleraUpalala.Models
     public class Proveedor
     {
         public int id { get; set; }
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "El campo es requerido.")]
+        [StringLength(100,ErrorMessage ="No más de 100 caracteres.")]
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
-        [StringLength(300)]
+        [StringLength(300,ErrorMessage ="No más de 300 caracteres.")]
         [Display(Name = "Domicilio")]
         public string domicilio { get; set; }
-        [StringLength(20)]
+        [StringLength(20,ErrorMessage ="No más de 20 caracteres.")]
         [Display(Name = "Telefono")]
         public string telefono { get; set; }
         [EmailAddress]

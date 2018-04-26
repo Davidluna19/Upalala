@@ -10,7 +10,7 @@ namespace PañaleraUpalala.Models
     public class Compra
     {
         public int id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="El campo es requerido.")]
         [Display(Name = "Fecha")]
         public DateTime fecha { get; set; }
         public int proveedorId { get; set; }

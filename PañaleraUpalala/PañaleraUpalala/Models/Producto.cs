@@ -10,8 +10,8 @@ namespace PañaleraUpalala.Models
     public class Producto
     {
         public int id { get; set; }
-        [Required]
-        [StringLength(20)]
+        [Required(ErrorMessage = "El campo es requerido.")]
+        [StringLength(20,ErrorMessage ="No más de 20 caracteres.")]
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
         public int categoriaId { get; set; }
@@ -28,10 +28,10 @@ namespace PañaleraUpalala.Models
         public Talle talle { get; set; }
         [Display(Name = "Stock")]
         public int stock = 0;
-        [Required]
+        [Required(ErrorMessage = "El campo es requerido.")]
         [Display(Name = "Costo")]
         public double costo { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo es requerido.")]
         [Display(Name = "Recargo")]
         public double recargo { get;  set; }
         [Display(Name = "Compras")]

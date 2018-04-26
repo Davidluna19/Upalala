@@ -10,19 +10,19 @@ namespace PañaleraUpalala.Models
     public class Cliente
     {
         public int id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="El campo es requerido.")]
         [Display(Name = "Nombre")]
-        [StringLength(100)]
+        [StringLength(100,ErrorMessage ="No más de 100 caracteres.")]
         public string nombre { get; set; }
         [Display(Name = "Domicilio")]
-        [StringLength(300)]
+        [StringLength(300,ErrorMessage ="No más de 300 Caracteres.")]
         public string domicilio { get; set; }
         [Display(Name = "Teléfono")]
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage ="No más de 20 caracteres.")]
         public string telefono { get; set; }
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage ="No más de 100 caracteres")]
         public string email { get; set; }
         [Display(Name = "Cuenta")]
         public double cuenta = 0.0;
