@@ -17,5 +17,7 @@ namespace PañaleraUpalala.Models
         [StringLength(150,ErrorMessage ="No más de 150 caracteres.")]
         [Display(Name = "Descripcion")]
         public string descripcion { get; set; }
+
+        public string Descripcion { get { return this.talle; } }
     }
 }

@@ -21,16 +21,18 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Productos")]
         public List<LineasCompra> productos { get; set; }
 
-        public double Total()
+        public double Total
         {
-            double total = 0.0;
-            foreach(LineasCompra linea in productos)
+            get
             {
-                total += linea.Total;
+                double total = 0.0;
+                foreach (LineasCompra linea in productos)
+                {
+                    total += linea.Total;
+                }
+                return total;
             }
-            return total;
         }
-
         public void ActualizarStock()
         {
             foreach (LineasCompra linea in productos)

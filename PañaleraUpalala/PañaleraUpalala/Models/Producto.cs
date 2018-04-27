@@ -39,12 +39,32 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Ventas")]
         List<LineasVenta> ventas { get; set; }
 
-        public int Stock()
-        {
-            return this.stock;
-        }
+        [Display(Name = "En Stock")]
+        public int Stock { get { return this.stock; } }
 
-        public string Descripcion() => (this.marca.marca + " " + this.nombre + " " + this.talle.talle);
+        [Display(Name = "Producto")]
+        public string Descripcion
+        {
+            get
+            {
+                string desc = "";
+                var db = new ApplicationDbContext();
+                var marca_query = from a in db.Marcas
+                            where a.id == this.marcaId
+                            select a;
+                var categoria_query = from a in db.Categorias
+                            where a.id == this.categoriaId
+                            select a;
+                var talle_query = from a in db.Talles
+                            where a.id == this.talleId
+                            select a;
+                Marca marca = marca_query.First();
+                Categoria categoria = categoria_query.First();
+                Talle talle = talle_query.First();
+                desc = categoria.categoria + " " + marca.Descripcion + " " + talle.Descripcion;
+                return desc;
+            }
+        }
 
         public void Compra(int cantidad)
         {
@@ -56,10 +76,7 @@ namespace PañaleraUpalala.Models
             this.stock -= cantidad;
         }
 
-        public double Precio()
-        {
-            return (this.costo * this.recargo);
-        }
+        public double Precio { get { return (this.costo * this.recargo); } }
 
         public bool ControlarStock(int cant)
         {

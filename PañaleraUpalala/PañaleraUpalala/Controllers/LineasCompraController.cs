@@ -41,6 +41,39 @@ namespace PañaleraUpalala.Controllers
             return View(model);
         }
 
+        // GET: LineasCompra/Create
+        public ActionResult Create()
+        {
+            var db = new ApplicationDbContext();
+            LineasCompraCreateView model = new LineasCompraCreateView();
+            model.productos = db.Productos.ToList();
+            return View(model);
+        }
+
+        // POST: LineasCompra/Create
+        [HttpPost]
+        public ActionResult Create(LineasCompraCreateView model)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    LineasCompra linea = new LineasCompra();
+                    ///linea.compraId = model.compraId;
+                    linea.productoId = model.productoId;
+                    linea.cantidad = model.cantidad;
+                    _repo.Crear(model);
+                }
+                return RedirectToAction("Create","Compra");
+            }
+            catch
+            {
+                /// MENSAJE ERROR
+                return RedirectToAction("Create");
+            }
+        }
+
 
         // GET: LineasCompra/Edit/5
         public ActionResult Edit(int? id)

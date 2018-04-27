@@ -18,5 +18,18 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Proveedor")]
         public int proveedorId { get; set; }
         public IEnumerable<LineasCompra> lineas { get; set; }
+
+        public double Total
+        {
+            get
+            {
+                double total = 0.0;
+                foreach (LineasCompra linea in lineas)
+                {
+                    total += linea.Total;
+                }
+                return total;
+            }
+        }
     }
 }

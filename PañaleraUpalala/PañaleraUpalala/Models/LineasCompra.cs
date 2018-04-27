@@ -21,6 +21,22 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Cantidad")]
         public int cantidad { get; set; }
 
-        public double Total { get { return (this.producto.costo * this.cantidad); } }
+        public double Total
+        { get
+            {
+                var db = new ApplicationDbContext();
+                var producto_query = from a in db.Productos
+                                  where a.id == this.productoId
+                                  select a;
+                if (producto_query.Any())
+                {
+                    Producto prod = producto_query.First();
+                    return (prod.costo * this.cantidad);
+                }else
+                {
+                    return 0.0;
+                }
+            }
+        }
     }
 }

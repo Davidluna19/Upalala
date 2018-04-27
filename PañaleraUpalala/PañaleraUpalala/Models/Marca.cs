@@ -18,5 +18,7 @@ namespace PañaleraUpalala.Models
         public string descripion { get; set; }
         [Display(Name = "Productos")]
         public List<Producto> productos { get; set; }
+
+        public string Descripcion { get { return this.marca; } }
     }
 }

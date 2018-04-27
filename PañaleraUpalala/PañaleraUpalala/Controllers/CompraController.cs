@@ -1,4 +1,5 @@
 ﻿using PañaleraUpalala.Models;
+using PañaleraUpalala.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,18 @@ namespace PañaleraUpalala.Controllers
 {
     public class CompraController : Controller
     {
+        private CompraRepository _repo;
+
+        public CompraController()
+        {
+            _repo = new CompraRepository();
+        }
+
         // GET: Compra
         public ActionResult Index()
         {
-            return View();
+            var model = _repo.ObetnerTodos();
+            return View(model);
         }
 
         // GET: Compra/Details/5
@@ -50,6 +59,7 @@ namespace PañaleraUpalala.Controllers
             var db = new ApplicationDbContext();
             ViewBag.proveedores = db.Proveedores.ToList();
             model.proveedores  = db.Proveedores.ToList();
+            model.lineas = new List<LineasCompra>();
             return View(model);
         }
 

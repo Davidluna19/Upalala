@@ -29,11 +29,7 @@
     </dl>
 </div>
 <div class="form-group">
-    <div class="btn btn-default">
-        @Html.ActionLink("Editar", "Edit", new { id = Model.id })
-    </div>
-    <div class="btn btn-default">
-        @Html.ActionLink("Volver", "Index")
-    </div>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-default" })
 </div>
 

@@ -391,13 +391,12 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Details.cshtml" />
     <Content Include="Views\Producto\Delete.cshtml" />
-    <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\ProductoCreateView\Create.cshtml" />
     <Content Include="Views\Talle\Create.cshtml" />
     <Content Include="Views\ProductoCreateView\Edit.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />
-    <Content Include="Views\CompraCreateView\Create.cshtml" />
     <Content Include="Views\Compra\Create.cshtml" />
+    <Content Include="Views\LineasCompra\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
