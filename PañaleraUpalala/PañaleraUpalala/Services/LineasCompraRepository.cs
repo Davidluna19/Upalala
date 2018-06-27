@@ -13,7 +13,7 @@ namespace PañaleraUpalala.Services
         {
             using (var db = new ApplicationDbContext())
             {
-                return db.LineasComrpas.ToList();
+                return db.LineasCompras.ToList();
             }
         }
 
@@ -21,7 +21,7 @@ namespace PañaleraUpalala.Services
         {
             using (var db = new ApplicationDbContext())
             {
-                var consulta = (from linea in db.LineasComrpas
+                var consulta = (from linea in db.LineasCompras
                              where linea.compraId == id
                              orderby linea.id
                              select linea).ToList();
@@ -33,7 +33,7 @@ namespace PañaleraUpalala.Services
         {
             using (var db = new ApplicationDbContext())
             {
-                db.LineasComrpas.Add(model);
+                db.LineasCompras.Add(model);
                 db.SaveChanges();
             }
         }
@@ -51,8 +51,8 @@ namespace PañaleraUpalala.Services
         {
             using (var db = new ApplicationDbContext())
             {
-                var model = db.LineasComrpas.Find(id);
-                db.LineasComrpas.Remove(model);
+                var model = db.LineasCompras.Find(id);
+                db.LineasCompras.Remove(model);
                 db.SaveChanges();
             }
         }

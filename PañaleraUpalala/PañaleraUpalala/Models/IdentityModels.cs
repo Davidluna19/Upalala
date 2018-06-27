@@ -21,7 +21,7 @@ namespace PañaleraUpalala.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("UpalalaConnectionDb", throwIfV1Schema: false)
+            : base("UpalalaConnection_Db", throwIfV1Schema: false)
         {
         }
 
@@ -33,7 +33,7 @@ namespace PañaleraUpalala.Models
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<Compra> Compras { get; set; }
-        public DbSet<LineasCompra> LineasComrpas { get; set; }
+        public DbSet<LineasCompra> LineasCompras { get; set; }
         public DbSet<LineasVenta> LineasVentas { get; set; }
 
         public static ApplicationDbContext Create()
@@ -43,6 +43,9 @@ namespace PañaleraUpalala.Models
 
         public System.Data.Entity.DbSet<PañaleraUpalala.Models.ProductoCreateView> ProductoCreateViews { get; set; }
 
-        public System.Data.Entity.DbSet<PañaleraUpalala.Models.CompraCreateView> CompraCreateViews { get; set; }
+
+        //public System.Data.Entity.DbSet<PañaleraUpalala.Models.ProductoCreateView> ProductoCreateViews { get; set; }
+
+        //public System.Data.Entity.DbSet<PañaleraUpalala.Models.CompraCreateView> CompraCreateViews { get; set; }
     }
 }

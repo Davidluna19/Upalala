@@ -18,6 +18,6 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Descripcion")]
         public string descripcion { get; set; }
 
-        public string Descripcion { get { return this.talle; } }
+        //public string Descripcion { get { return this.talle; } }
     }
 }

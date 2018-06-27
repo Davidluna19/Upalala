@@ -9,30 +9,50 @@ namespace PañaleraUpalala.Models
 {
     public class Compra
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public int id { get; set; }
         [Required(ErrorMessage ="El campo es requerido.")]
         [DataType(DataType.Date)]
         [Display(Name = "Fecha")]
         public DateTime fecha { get; set; }
+        [Display(Name = "ProveedorID")]
         public int proveedorId { get; set; }
         [ForeignKey("proveedorId")]
-        [Display(Name = "Proveedor")]
         public Proveedor proveedor { get; set; }
         [Display(Name = "Productos")]
         public List<LineasCompra> productos { get; set; }
 
+        [Display(Name = "Total")]
         public double Total
         {
             get
             {
                 double total = 0.0;
-                foreach (LineasCompra linea in productos)
+                var lineas = db.LineasCompras.ToList();
+                if (lineas != null)
                 {
-                    total += linea.Total;
+                    foreach (LineasCompra linea in lineas)
+                    {
+                        if (linea.compraId == this.id)
+                        {
+                            total += linea.Total;
+                        }
+                    }
                 }
                 return total;
             }
         }
+
+        [Display(Name = "Proveedor")]
+        public string ProveedorDesc
+        {
+            get
+            {
+                Proveedor prov = db.Proveedores.Find(proveedorId);
+                return prov.nombre;                
+            }
+        }
+
         public void ActualizarStock()
         {
             foreach (LineasCompra linea in productos)

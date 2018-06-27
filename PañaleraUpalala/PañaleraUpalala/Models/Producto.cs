@@ -27,7 +27,7 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Talle")]
         public Talle talle { get; set; }
         [Display(Name = "Stock")]
-        public int stock = 0;
+        public int stock { get; set; }
         [Required(ErrorMessage = "El campo es requerido.")]
         [Display(Name = "Costo")]
         public double costo { get; set; }
@@ -40,7 +40,13 @@ namespace PañaleraUpalala.Models
         List<LineasVenta> ventas { get; set; }
 
         [Display(Name = "En Stock")]
-        public int Stock { get { return this.stock; } }
+        public int EnStock
+        {
+            get
+            {
+                return stock;
+            }
+        }
 
         [Display(Name = "Producto")]
         public string Descripcion
@@ -61,19 +67,19 @@ namespace PañaleraUpalala.Models
                 Marca marca = marca_query.First();
                 Categoria categoria = categoria_query.First();
                 Talle talle = talle_query.First();
-                desc = categoria.categoria + " " + marca.Descripcion + " " + talle.Descripcion;
+                desc = categoria.categoria + " " + marca.Descripcion + " " + talle.descripcion;
                 return desc;
             }
         }
 
         public void Compra(int cantidad)
         {
-            this.stock += cantidad;
+            stock += cantidad;
         }
 
         public void Venta(int cantidad)
         {
-            this.stock -= cantidad;
+            stock -= cantidad;
         }
 
         public double Precio { get { return (this.costo * this.recargo); } }

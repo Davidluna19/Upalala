@@ -11,10 +11,13 @@ namespace PañaleraUpalala.Controllers
     public class CompraController : Controller
     {
         private CompraRepository _repo;
+        private ProductoRepository _repoProd;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public CompraController()
         {
             _repo = new CompraRepository();
+            _repoProd = new ProductoRepository();
         }
 
         // GET: Compra
@@ -22,6 +25,82 @@ namespace PañaleraUpalala.Controllers
         {
             var model = _repo.ObetnerTodos();
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            CompraCreateView compraView = new CompraCreateView();
+            compraView.proveedor = new Proveedor();
+            compraView.productos = new List<LineasCompra>();
+            compraView.fecha = System.DateTime.Now;
+            compraView.proveedores = db.Proveedores.ToList();
+            Session["CompraView"] = compraView;
+            if (compraView.productos == null)
+            {
+                compraView.productos = new List<LineasCompra>();
+            }
+            return View(compraView);
+        }
+
+        [HttpPost]
+        public ActionResult Create(CompraCreateView compra)
+        {
+            compra = Session["CompraView"] as CompraCreateView;
+            int idPorveedor = int.Parse(Request["proveedorId"]);
+            DateTime fechaCompra = Convert.ToDateTime(Request["fecha"]);
+            Compra nuevaCompra = new Compra()
+            {
+                proveedorId = idPorveedor,
+                fecha = fechaCompra
+            };
+            db.Compras.Add(nuevaCompra);
+            db.SaveChanges();
+            int ultimoIdCompra = db.Compras.ToList().Select(o => o.id).Max();
+            foreach (LineasCompra linea in compra.productos)
+            {
+                var detalle = new LineasCompra()
+                {
+                    compraId = ultimoIdCompra,
+                    productoId = linea.productoId,
+                    cantidad = linea.cantidad,
+                    costo = linea.costo
+                };
+                Producto prod = db.Productos.Find(linea.productoId);
+                prod.Compra(linea.cantidad);
+                _repoProd.Actualizar(prod);
+                db.LineasCompras.Add(detalle);
+            }
+            db.SaveChanges();
+            var compraView = Session["CompraView"] as CompraCreateView;
+            compraView.proveedores = db.Proveedores.ToList();
+            return RedirectToAction("Index","Compra");
+        }
+
+
+        [HttpGet]
+        public ActionResult AgregarLinea()
+        {
+            LineasCompraCreateView model = new LineasCompraCreateView();
+            model.productos = db.Productos.ToList();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarLinea(LineasCompra linea)
+        {
+            var compraView = Session["CompraView"] as CompraCreateView;
+            var idProducto = int.Parse(Request["productoId"]);
+            var producto = db.Productos.Find(idProducto);
+            linea = new LineasCompra()
+            {
+                productoId = producto.id,
+                costo = producto.costo,
+                cantidad = int.Parse(Request["cantidad"])
+            };
+            compraView.productos.Add(linea);
+            compraView.proveedores = db.Proveedores.ToList();
+            return View("Create", compraView);
         }
 
         // GET: Compra/Details/5
@@ -49,45 +128,6 @@ namespace PañaleraUpalala.Controllers
             catch
             {
                 return View();
-            }
-        }
-
-        // GET: Compra/Create
-        public ActionResult Create()
-        {
-            CompraCreateView model = new CompraCreateView();
-            var db = new ApplicationDbContext();
-            ViewBag.proveedores = db.Proveedores.ToList();
-            model.proveedores  = db.Proveedores.ToList();
-            model.lineas = new List<LineasCompra>();
-            return View(model);
-        }
-
-        // POST: Compra/Create
-        [HttpPost]
-        public ActionResult Create(CompraCreateView model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var db = new ApplicationDbContext();
-                    //Insertar en db
-                    Compra compra = new Compra();
-                    compra.fecha = model.fecha;
-                    compra.proveedorId = model.proveedorId;
-                    db.Compras.Add(compra);
-                    foreach (LineasCompra linea in model.lineas) {
-                        linea.compraId = compra.id;
-                        db.LineasComrpas.Add(linea);
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                /// MENSAJE ERROR
-                return RedirectToAction("Create");
             }
         }
     }

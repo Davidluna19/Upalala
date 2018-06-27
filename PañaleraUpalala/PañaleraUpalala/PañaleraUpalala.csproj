@@ -223,7 +223,6 @@
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Talle.cs" />
-    <Compile Include="Models\UpalalaContext.cs" />
     <Compile Include="Models\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -395,8 +394,11 @@
     <Content Include="Views\Talle\Create.cshtml" />
     <Content Include="Views\ProductoCreateView\Edit.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />
-    <Content Include="Views\Compra\Create.cshtml" />
     <Content Include="Views\LineasCompra\Create.cshtml" />
+    <Content Include="Views\CompraCreateView\Create.cshtml" />
+    <Content Include="Views\CompraCreateView\AgregarLinea.cshtml" />
+    <Content Include="Views\Compra\Create.cshtml" />
+    <Content Include="Views\Compra\AgregarLinea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

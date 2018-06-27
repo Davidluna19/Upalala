@@ -6,30 +6,9 @@ using System.Web;
 
 namespace PañaleraUpalala.Models
 {
-    public class CompraCreateView
+    public class CompraCreateView: Compra
     {
-        public int id { get; set; }
-        [Required(ErrorMessage = "El campo es requerido.")]
-        [Display(Name = "Fecha")]
-        [DataType(DataType.Date)]
-        public DateTime fecha { get; set; }
         public IEnumerable<Proveedor> proveedores { get; set; }
-        [Required(ErrorMessage = "El campo es requerido.")]
-        [Display(Name = "Proveedor")]
-        public int proveedorId { get; set; }
-        public IEnumerable<LineasCompra> lineas { get; set; }
 
-        public double Total
-        {
-            get
-            {
-                double total = 0.0;
-                foreach (LineasCompra linea in lineas)
-                {
-                    total += linea.Total;
-                }
-                return total;
-            }
-        }
     }
 }
