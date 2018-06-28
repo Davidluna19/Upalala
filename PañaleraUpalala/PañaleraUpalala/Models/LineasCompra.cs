@@ -26,7 +26,7 @@ namespace PañaleraUpalala.Models
         public double Total
         { get
             {
-                 return (this.costo * this.cantidad);
+                 return (costo * cantidad);
             }
         }
 

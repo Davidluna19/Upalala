@@ -82,12 +82,12 @@ namespace PañaleraUpalala.Models
             stock -= cantidad;
         }
 
-        public double Precio { get { return (this.costo * this.recargo); } }
+        public double Precio { get { return (costo + ((costo/100 )* recargo)); } }
 
         public bool ControlarStock(int cant)
         {
             bool aux = false;
-            if (this.stock >= cant)
+            if (stock >= cant)
             {
                 aux = true;
             }

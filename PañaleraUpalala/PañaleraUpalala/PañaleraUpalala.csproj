@@ -199,13 +199,18 @@
     <Compile Include="Controllers\ProductoCreateViewController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\TalleController.cs" />
+    <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Caja.cs" />
+    <Compile Include="Services\CajaReposiroty.cs" />
     <Compile Include="Models\CompraCreateView.cs" />
     <Compile Include="Models\LineasCompraCreateView.cs" />
+    <Compile Include="Models\LineasVentaCreateView.cs" />
     <Compile Include="Models\ProductoCreateView.cs" />
+    <Compile Include="Models\VentaCreateView.cs" />
     <Compile Include="Services\CategoriaRepository.cs" />
     <Compile Include="Services\ClienteRepository.cs" />
     <Compile Include="Services\CompraRepository.cs" />
@@ -230,6 +235,7 @@
     <Compile Include="Services\ProveedorRepository.cs" />
     <Compile Include="Services\TalleCreateViewRepository.cs" />
     <Compile Include="Services\TalleRepository.cs" />
+    <Compile Include="Services\VentaRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\MarcaController.cs" />
   </ItemGroup>
@@ -399,6 +405,9 @@
     <Content Include="Views\CompraCreateView\AgregarLinea.cshtml" />
     <Content Include="Views\Compra\Create.cshtml" />
     <Content Include="Views\Compra\AgregarLinea.cshtml" />
+    <Content Include="Views\Venta\Index.cshtml" />
+    <Content Include="Views\Venta\Create.cshtml" />
+    <Content Include="Views\Venta\AgregarLinea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

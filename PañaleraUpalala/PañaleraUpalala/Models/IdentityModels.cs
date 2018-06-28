@@ -33,6 +33,7 @@ namespace PañaleraUpalala.Models
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<Compra> Compras { get; set; }
+        public DbSet<Caja> Caja { get; set; }
         public DbSet<LineasCompra> LineasCompras { get; set; }
         public DbSet<LineasVenta> LineasVentas { get; set; }
 

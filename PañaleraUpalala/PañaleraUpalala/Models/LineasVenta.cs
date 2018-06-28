@@ -9,6 +9,7 @@ namespace PañaleraUpalala.Models
 {
     public class LineasVenta
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public int id { get; set; }
         public int ventaId { get; set; }
         [ForeignKey("ventaId")]
@@ -20,7 +21,21 @@ namespace PañaleraUpalala.Models
         public Producto producto { get; set; }
         [Display(Name = "Cantidad")]
         public int cantidad { get; set; }
+        public double precio { get; set; }
 
-        public double Total { get { return (this.producto.Precio * this.cantidad); } }
+        public double Total { get { return (precio * cantidad); } }
+
+        [Display(Name = "Producto")]
+        public string ProductoDesc
+        {
+            get
+            {
+                Producto prod = db.Productos.Find(productoId);
+                return (prod.Descripcion);
+            }
+
+        }
+        
+
     }
 }

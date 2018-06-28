@@ -71,6 +71,15 @@ namespace PañaleraUpalala.Controllers
                 _repoProd.Actualizar(prod);
                 db.LineasCompras.Add(detalle);
             }
+            Caja caja = new Caja()
+            {
+                fecha = compra.fecha,
+                compra = true,
+                descripcion = "Compra",
+                movimientoId = nuevaCompra.id,
+                monto = compra.Total
+            };
+            db.Caja.Add(caja);
             db.SaveChanges();
             var compraView = Session["CompraView"] as CompraCreateView;
             compraView.proveedores = db.Proveedores.ToList();

@@ -9,6 +9,7 @@ namespace PañaleraUpalala.Models
 {
     public class Venta
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public int id { get; set; }
         [Required(ErrorMessage = "El campo es requerido.")]
         [DataType(DataType.Date)]
@@ -23,14 +24,35 @@ namespace PañaleraUpalala.Models
         [Display(Name = "Pago")]
         public double pago { get; set; }
 
-        public double Total()
+        [Display(Name = "Total")]
+        public double Total
         {
-            double total = 0.0;
-            foreach (LineasVenta linea in productos)
+            get
             {
-                total += linea.Total;
+                double total = 0.0;
+                var lineas = db.LineasVentas.ToList();
+                if (lineas != null)
+                {
+                    foreach (LineasVenta linea in lineas)
+                    {
+                        if (linea.ventaId == this.id)
+                        {
+                            total += linea.Total;
+                        }
+                    }
+                }
+                return total;
             }
-            return total;
+        }
+
+        [Display(Name = "Cliente")]
+        public string ClienteDesc
+        {
+            get
+            {
+                Cliente cli = db.Clientes.Find(clienteId);
+                return cli.nombre;
+            }
         }
 
         public bool ControlStock()

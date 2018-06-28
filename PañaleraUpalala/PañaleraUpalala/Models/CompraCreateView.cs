@@ -9,6 +9,5 @@ namespace PañaleraUpalala.Models
     public class CompraCreateView: Compra
     {
         public IEnumerable<Proveedor> proveedores { get; set; }
-
     }
 }
