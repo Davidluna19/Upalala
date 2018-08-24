@@ -43,6 +43,14 @@ namespace PañaleraUpalala.Controllers
             return View(compraView);
         }
 
+        [HttpGet]
+        public ActionResult NoLinea()
+        {
+            var compraView = Session["CompraView"] as CompraCreateView;
+            compraView.proveedores = db.Proveedores.ToList();
+            return View("Create", compraView);
+        }
+
         [HttpPost]
         public ActionResult Create(CompraCreateView compra)
         {

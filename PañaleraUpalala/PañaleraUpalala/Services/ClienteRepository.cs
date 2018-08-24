@@ -48,6 +48,18 @@ namespace PañaleraUpalala.Services
             using (var db = new ApplicationDbContext())
             {
                 var model = db.Clientes.Find(id);
+                string qery = "SELECT * FROM dbo.Ventas WHERE clienteId = " + model.id.ToString();
+                var ventas = db.Ventas.SqlQuery(qery).ToList();            
+                foreach (Venta venta in ventas)
+                {
+                    string qry = "SELECT * FROM dbo.LineasVentas WHERE ventaId = " + venta.id.ToString();
+                    var productos = db.LineasVentas.SqlQuery(qry).ToList();
+                    foreach (LineasVenta linea in productos)
+                    {                     
+                        db.LineasVentas.Remove(linea);
+                    }
+                    db.Ventas.Remove(venta);
+                }
                 db.Clientes.Remove(model);
                 db.SaveChanges();
             }

@@ -25,18 +25,18 @@ namespace PañaleraUpalala.Models
         [StringLength(100, ErrorMessage ="No más de 100 caracteres")]
         public string email { get; set; }
         [Display(Name = "Cuenta")]
-        public double cuenta = 0.0;
+        public double cuenta { get; set; }
         [Display(Name = "Ventas")]
         public List<Venta> ventas { get; set; }
         
         public void Debe(double cantidad)
         {
-            this.cuenta += cantidad;
+            cuenta += cantidad;
         }
 
         public void Paga(double cantidad)
         {
-            this.cuenta -= cantidad;
+            cuenta -= cantidad;
         }
     }
 }

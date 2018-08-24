@@ -3,6 +3,7 @@ using PañaleraUpalala.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,12 +13,14 @@ namespace PañaleraUpalala.Controllers
     {
         private VentaRepository _repo;
         private ProductoRepository _repoProd;
+        private ClienteRepository _repoCli;
         private ApplicationDbContext db = new ApplicationDbContext();
 
         public VentaController()
         {
             _repo = new VentaRepository();
             _repoProd = new ProductoRepository();
+            _repoCli = new ClienteRepository();
         }
 
         // GET: Venta
@@ -33,7 +36,7 @@ namespace PañaleraUpalala.Controllers
             VentaCreateView VentaView = new VentaCreateView();
             VentaView.cliente= new Cliente();
             VentaView.productos = new List<LineasVenta>();
-            VentaView.fecha = System.DateTime.Now;
+            VentaView.fecha = System.DateTime.Now.Date;
             VentaView.clientes = db.Clientes.ToList();
             Session["VentaView"] = VentaView;
             if (VentaView.productos == null)
@@ -47,12 +50,14 @@ namespace PañaleraUpalala.Controllers
         public ActionResult Create(VentaCreateView venta)
         {
             venta = Session["VentaView"] as VentaCreateView;
-            int idClietne = int.Parse(Request["clienteId"]);
+            int idCliente = int.Parse(Request["clienteId"]);
             DateTime fechaVenta = Convert.ToDateTime(Request["fecha"]);
+            double pago = double.Parse(Request["pago"]);
             Venta nuevaVenta = new Venta()
             {
-                clienteId= idClietne,
-                fecha = fechaVenta
+                clienteId= idCliente,
+                fecha = fechaVenta,
+                pago = pago
             };
             db.Ventas.Add(nuevaVenta);
             db.SaveChanges();
@@ -77,9 +82,17 @@ namespace PañaleraUpalala.Controllers
                 compra = false,
                 descripcion = "Venta",
                 movimientoId = nuevaVenta.id,
-                monto = venta.Total
+                monto = venta.pago
             };
             db.Caja.Add(caja);
+            db.SaveChanges();
+            double debe = nuevaVenta.Total - nuevaVenta.pago;
+            if (debe > 0 )
+            {
+                var cliente = db.Clientes.Find(nuevaVenta.clienteId);
+                cliente.Debe(debe);
+                _repoCli.Actualizar(cliente);
+            }
             db.SaveChanges();
             var ventaView = Session["VentaView"] as VentaCreateView;
             ventaView.clientes = db.Clientes.ToList();
@@ -112,16 +125,52 @@ namespace PañaleraUpalala.Controllers
             return View("Create", ventaView);
         }
 
-        // GET: Compra/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult NoLinea()
         {
-            return View();
+            var ventaView = Session["VentaView"] as VentaCreateView;
+            ventaView.clientes = db.Clientes.ToList();
+            return View("Create", ventaView);
+        }
+
+        // GET: Compra/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = _repo.Buscar(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            VentaCreateView VentaView = new VentaCreateView();
+            VentaView.cliente = db.Clientes.Find(model.clienteId);
+            string qery = "SELECT * FROM dbo.LineasVentas WHERE ventaId = " + model.id.ToString();
+            VentaView.productos = db.LineasVentas.SqlQuery(qery).ToList();
+            VentaView.fecha = model.fecha;
+            return View(VentaView);
         }
 
         // GET: Compra/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = _repo.Buscar(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            VentaCreateView VentaView = new VentaCreateView();
+            VentaView.cliente = db.Clientes.Find(model.clienteId);
+            string qery = "SELECT * FROM dbo.LineasVentas WHERE ventaId = " + model.id.ToString();
+            VentaView.productos = db.LineasVentas.SqlQuery(qery).ToList();
+            VentaView.fecha = model.fecha;
+            return View(VentaView);
         }
 
         // POST: Compra/Delete/5
@@ -130,13 +179,23 @@ namespace PañaleraUpalala.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var venta = _repo.Buscar(id);
+                string qery = "SELECT * FROM dbo.LineasVentas WHERE ventaId = " + venta.id.ToString();
+                var productos = db.LineasVentas.SqlQuery(qery).ToList();
+                foreach (LineasVenta linea in productos)
+                {
+                    var prod = _repoProd.Buscar(linea.productoId);
+                    prod.Compra(linea.cantidad);
+                    _repoProd.Actualizar(prod);
+                    db.LineasVentas.Remove(linea);        
+                }
+                db.SaveChanges();
+                _repo.Eliminar(id);
+                return RedirectToAction("Index", "Venta");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Venta");
             }
         }
     }

@@ -20,8 +20,7 @@ namespace PañaleraUpalala.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("UpalalaConnection_Db", throwIfV1Schema: false)
+        public ApplicationDbContext() : base("ConnectionDb", throwIfV1Schema: false)
         {
         }
 
@@ -36,6 +35,8 @@ namespace PañaleraUpalala.Models
         public DbSet<Caja> Caja { get; set; }
         public DbSet<LineasCompra> LineasCompras { get; set; }
         public DbSet<LineasVenta> LineasVentas { get; set; }
+
+        
 
         public static ApplicationDbContext Create()
         {

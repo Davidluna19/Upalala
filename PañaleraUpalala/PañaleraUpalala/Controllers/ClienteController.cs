@@ -12,10 +12,12 @@ namespace PañaleraUpalala.Controllers
     public class ClienteController : Controller
     {
         private ClienteRepository _repo;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ClienteController()
         {
             _repo = new ClienteRepository();
+
         }
 
         // GET: Cliente
@@ -112,6 +114,9 @@ namespace PañaleraUpalala.Controllers
             {
                 return HttpNotFound();
             }
+            string qery = "SELECT * FROM dbo.Ventas WHERE clienteId = " + model.id.ToString();
+            var ventas = db.Ventas.SqlQuery(qery).ToList();
+            ViewBag.ventas = ventas;
             return View(model);
         }
 

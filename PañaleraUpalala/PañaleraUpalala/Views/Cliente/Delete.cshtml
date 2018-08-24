@@ -6,7 +6,7 @@
 
 <h2 class="text-center">Delete</h2>
 
-<h3>Eliminar cliente?</h3>
+<h3>Eliminar cliente y sus compras?</h3>
 <div>
     <h4>Cliente</h4>
     <hr />
@@ -36,6 +36,38 @@
         </dd>
 
     </dl>
+
+    <h2 class="text-center">Ventas</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                Fecha
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Pago
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.ventas)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(item.fecha)
+                </td>
+                <td>
+                    $@Html.DisplayFor( item.Total)
+                </td>
+                <td>
+                    $@Html.DisplayFor(item.Pago)
+                </td>
+            </tr>
+        }
+    </table>
 
     @using (Html.BeginForm())
     {

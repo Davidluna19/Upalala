@@ -15,6 +15,7 @@ namespace PañaleraUpalala.Models
         [DataType(DataType.Date)]
         [Display(Name = "Fecha")]
         public DateTime fecha { get; set; }
+        [Display(Name = "Cliente")]
         public int clienteId { get; set; }
         [ForeignKey("clienteId")]
         [Display(Name = "Cliente")]
@@ -30,15 +31,14 @@ namespace PañaleraUpalala.Models
             get
             {
                 double total = 0.0;
-                var lineas = db.LineasVentas.ToList();
+                string qery = "SELECT * FROM dbo.LineasVentas WHERE ventaId = " + this.id.ToString();
+                var lineas = db.LineasVentas.SqlQuery(qery).ToList();
+                //var lineas = db.LineasVentas.ToList();
                 if (lineas != null)
                 {
                     foreach (LineasVenta linea in lineas)
                     {
-                        if (linea.ventaId == this.id)
-                        {
-                            total += linea.Total;
-                        }
+                        total += linea.Total;
                     }
                 }
                 return total;

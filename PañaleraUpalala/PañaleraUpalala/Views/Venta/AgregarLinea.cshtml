@@ -31,14 +31,10 @@
         </div>
     </div>
 
-    <hr />
-        <p>Total: @Html.DisplayFor(modelItem => Model.Total)</p>
-    <hr />
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Guardar" class="btn btn-default" />
-            @Html.ActionLink("Volver", "Cancelar", "LineasVenta", new { }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Volver", "NoLinea", "Venta", new { }, new { @class = "btn btn-default" })
         </div>
     </div>
 </div>
